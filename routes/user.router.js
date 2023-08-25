@@ -1,5 +1,5 @@
-const expresss = require('express');
-const router = expresss.Router()
+const express = require('express');
+const router = express.Router()
 
 router.get('/', (req, res) => {
   res.json([{
@@ -20,16 +20,55 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/:userId', (req, res) => {
-  const {userId} = req.params;
+router.get('/:id', (req, res) => {
+  const {id} = req.params;
   res.json({
-    userId,
+    id,
       name:'John Doe',
       password: '123456',
       email:'email@email.com',
       rol: 'admin'
   }
   );
+});
+
+router.post('/', (req, res) => {
+  const body = req.body;
+  res.status(201).json({
+    message:'created',
+    data: body
+  })
+});
+
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'update',
+    data: body,
+    id
+  });
+});
+
+
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'update',
+    data: body,
+    id
+  });
+});
+
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'deleted',
+    id
+  });
 });
 
 
