@@ -1,45 +1,26 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
+const UserService = require('../services/user.service');
+const service = new UserService();
 
 router.get('/', (req, res) => {
-  res.json([{
-      id: 1,
-      name:'John Doe',
-      password: '123456',
-      email:'email@email.com',
-      rol: 'admin'
-  },
-  {
-    id: 2,
-    name:'John Doe',
-    password: '123456',
-    email:'email@email.com',
-    rol: 'admin'
-}
-]);
+  const users = service.find();
+  res.json(users);
 });
 
-
 router.get('/:id', (req, res) => {
-  const {id} = req.params;
-  res.json({
-    id,
-      name:'John Doe',
-      password: '123456',
-      email:'email@email.com',
-      rol: 'admin'
-  }
-  );
+  const { id } = req.params;
+  const user = service.findOne(id);
+  res.json(user);
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
   res.status(201).json({
-    message:'created',
-    data: body
-  })
+    message: 'created',
+    data: body,
+  });
 });
-
 
 router.patch('/:id', (req, res) => {
   const { id } = req.params;
@@ -47,10 +28,9 @@ router.patch('/:id', (req, res) => {
   res.json({
     message: 'update',
     data: body,
-    id
+    id,
   });
 });
-
 
 router.put('/:id', (req, res) => {
   const { id } = req.params;
@@ -58,18 +38,16 @@ router.put('/:id', (req, res) => {
   res.json({
     message: 'update',
     data: body,
-    id
+    id,
   });
 });
-
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   res.json({
     message: 'deleted',
-    id
+    id,
   });
 });
-
 
 module.exports = router;
