@@ -8,45 +8,43 @@ router.get('/', (req, res) => {
   res.json(spaDays);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const spaDay = service.findOne(id);
+  const spaDay = await service.findOne(id);
   res.json(spaDay);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: 'created',
-    data: body,
+  const newSpaDay = await service.create(body);
+  res.status(201).json(newSpaDay);
+});
+
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  const spaDay = await service.update(id, body);
+  res.json({
+    message: 'updated',
+    spaDay
   });
 });
 
-router.patch('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const body = req.body;
+  const spaDay = await service.update(id, body);
   res.json({
-    message: 'update',
-    data: body,
-    id,
+    message: 'updated',
+    spaDay
   });
 });
 
-router.put('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  const body = req.body;
+  const rta = await service.delete(id);
   res.json({
-    message: 'update',
-    data: body,
-    id,
-  });
-});
-
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({
-    message: 'deleted',
-    id,
+    rta
   });
 });
 

@@ -9,45 +9,43 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const watterCircuit = service.findOne(id);
+  const watterCircuit = await service.findOne(id);
   res.json(watterCircuit);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: 'created',
-    data: body,
+  const newWatterCircuit = await service.create(body);
+  res.status(201).json(newWatterCircuit);
+});
+
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  const watterCircuit = await service.update(id, body);
+  res.json({
+    message: 'updated',
+    watterCircuit
   });
 });
 
-router.patch('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const body = req.body;
+  const watterCircuit = await service.update(id, body);
   res.json({
-    message: 'update',
-    data: body,
-    id,
+    message: 'updated',
+    watterCircuit
   });
 });
 
-router.put('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  const body = req.body;
+  const rta = await service.delete(id);
   res.json({
-    message: 'update',
-    data: body,
-    id,
-  });
-});
-
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({
-    message: 'deleted',
-    id,
+    rta
   });
 });
 

@@ -8,41 +8,41 @@ router.get('/', (req, res) => {
   res.json(treatments);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const treatment = service.findOne(id);
+  const treatment = await service.findOne(id);
   res.json(treatment);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body;
-  const newProduct = service.create(body);
+  const newProduct = await service.create(body);
   res.status(201).json(newProduct);
 });
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', async (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  const treatment = service.update(id, body);
+  const treatment = await service.update(id, body);
   res.json({
     message: 'updated',
     treatment
   });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  const treatment = service.update(id, body);
+  const treatment = await service.update(id, body);
   res.json({
     message: 'updated',
     treatment
   });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  const rta = service.delete(id);
+  const rta = await service.delete(id);
   res.json({
     rta
   });
