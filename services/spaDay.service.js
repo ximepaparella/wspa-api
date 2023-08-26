@@ -100,19 +100,47 @@ class SpaDaysService {
     },];
   }
 
-  create() {}
+  async create(data) {
+    const newSpaDay = {
+      id: Math.random().toString(36).substr(2, 9),
+      ...data
+    }
+    this.spaDays.push(newSpaDay);
+    return newSpaDay;
+  }
 
-  find() {
+  async find() {
     return this.spaDays;
   }
 
-  findOne(id){
+  async findOne(id){
     return this.spaDays.find(spaDay => spaDay.id === id);
   }
 
-  update() {}
+  async update(id, changes) {
+    const index = this.spaDays.findIndex(spaDay => spaDay.id === id);
+    if(index === -1) {
+      throw new Error('SpaDay not found');
+    }
+    const spaDay = this.spaDays[index];
+    this.spaDays[index] = {
+      ...spaDay,
+      ...changes
+    }
+    return this.spaDays[index];
+  }
 
-  delete() {}
+  async delete(id) {
+    const index = this.spaDays.findIndex(spaDay => spaDay.id === id);
+    if(index === -1) {
+      throw new Error('SpaDay not found');
+    }
+    this.spaDays.splice(index, 1)
+    return {
+      message: 'SpaDay Eliminado',
+      id
+    }
+  }
 
 }
 

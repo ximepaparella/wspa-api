@@ -82,19 +82,47 @@ class MembershipService {
     ];
   }
 
-  create() {}
+  async create(data) {
+    const newMembership = {
+      id: Math.random().toString(36).substr(2, 9),
+      ...data
+    }
+    this.memberships.push(newMembership);
+    return newMembership;
+  }
 
-  find() {
+  async find() {
     return this.memberships;
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.memberships.find((membership) => membership.id === id);
   }
 
-  update() {}
+  async update(id, changes) {
+    const index = this.memberships.findIndex((membership) => membership.id === id);
+    if (index === -1) {
+      throw new Error('Membership not found');
+    }
+    const membership = this.memberships[index];
+    this.memberships[index] = {
+      ...membership,
+      ...changes,
+    }
+    return this.memberships[index];
+  }
 
-  delete() {}
+  async delete(id) {
+    const index = this.memberships.findIndex((membership) => membership.id === id);
+    if (index === -1) {
+      throw new Error('Membership not found');
+    }
+    this.memberships.splice(index, 1)
+    return {
+      message: 'Membership deleted',
+      id
+    }
+  }
 }
 
 module.exports = MembershipService;

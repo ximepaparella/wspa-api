@@ -23,17 +23,30 @@ class InformationService {
     ];
   }
 
-  create() {}
+  async create(data) {
+    const newInformation = {
+      ...data,
+    }
+    this.information.push(newInformation);
+    return newInformation;
+  }
 
-  find() {
+  async find() {
     return this.information;
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.information.find((info) => info.id === id);
   }
 
-  update() {}
+  async update(changes) {
+   const information = this.information[0];
+   const informationUpdated = {
+      ...information,
+      ...changes
+   }
+   return informationUpdated;
+  }
 
   delete() {}
 }

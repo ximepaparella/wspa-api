@@ -18,19 +18,47 @@ class UsersService {
     ];
   }
 
-  create() {}
+  async create(data) {
+    const newUser = {
+      id: Math.random().toString(36).substr(2, 9),
+      ...data
+    }
+    this.users.push(newUser);
+    return newUser;
+  }
 
-  find() {
+  async find() {
     return this.users;
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.users.find((user) => user.id === id);
   }
 
-  update() {}
+  async update(id, changes) {
+    const index = this.users.findIndex((user) => user.id === id);
+    if (index === -1) {
+      throw new Error('User not found');
+    }
+    const user = this.users[index];
+    this.users[index] = {
+      ...user,
+      ...changes
+    }
+    return this.users[index];
+  }
 
-  delete() {}
+  async delete(id) {
+    const index = this.users.findIndex((user) => user.id === id);
+    if (index === -1) {
+      throw new Error('User not found');
+    }
+    this.users.splice(index, 1)
+    return {
+      message: 'User deleted',
+      id
+    }
+  }
 }
 
 module.exports = UsersService;

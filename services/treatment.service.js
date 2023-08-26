@@ -81,19 +81,47 @@ constructor() {
 ];
 }
 
-create() {}
+create(data) {
+  const newTreatment = {
+    id: Math.random().toString(36).substr(2, 9),
+    ...data
+   }
+   this.treatments.push(newTreatment);
+   return newTreatment;
+}
 
-find() {
+async find() {
   return this.treatments;
 }
 
-findOne(id){
+async findOne(id){
   return this.treatments.find(treatment => treatment.id === id);
 }
 
-update() {}
+async update(id, changes) {
+  const index = this.treatments.findIndex(treatment => treatment.id === id);
+  if(index === -1) {
+    throw new Error('Treatment not found');
+  }
+    const treatment = this.treatments[index];
+    this.treatments[index] = {
+      ...treatment,
+      ...changes
+    }
+    return this.treatments[index];
+}
 
-delete() {}
+async delete(id) {
+  const index = this.treatments.findIndex(treatment => treatment.id === id);
+  if(index === -1) {
+    throw new Error('Treatment not found');
+  }
+  this.treatments.splice(index, 1)
+  return {
+    message: 'Producto Eliminado',
+    id
+  }
+}
 
 }
 
