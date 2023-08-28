@@ -10,6 +10,7 @@ class MembershipService {
         price: 15000,
         giftVoucherLink:
           'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380847b62931d017b9c68ce3b29cc',
+          image: 'http://placeholder.com/300x300',
         services: [
           {
             id: 1,

@@ -13,19 +13,51 @@ class WatterCircuitService {
     ];
   }
 
-  create() {}
+  create(data) {
+    const newWatterCircuit = {
+      id: Math.random().toString(36).substr(2, 9),
+      ...data
+    }
+    this.watterCircuits.push(newWatterCircuit);
+    return newWatterCircuit;
+  }
 
-  find() {
+  async find() {
     return this.watterCircuits;
   }
 
-  findOne(id) {
-    return this.watterCircuits.find((circuit) => circuit.id === id);
+  async findOne(id){
+    const watterCircuit = this.treatments.find(treatment => treatment.id === id);
+    if(!watterCircuit) {
+      throw boom.notFound('Treatment not found');
+    }
+    return watterCircuit;
   }
 
-  update() {}
+  async update(id, changes) {
+    const index = this.watterCircuits.findIndex(watterCircuit => watterCircuit.id === id);
+    if(index === -1) {
+      throw boom.notFound('Treatment not found');
+    }
+    const watterCircuit = this.watterCircuits[index];
+    this.watterCircuits[index] = {
+      ...watterCircuit,
+      ...changes
+    }
+    return this.watterCircuits[index];
+  }
 
-  delete() {}
+  async delete(id) {
+    const index = this.watterCircuits.findIndex(watterCircuit => watterCircuit.id === id);
+    if(index === -1) {
+      throw boom.notFound('Treatment not found');
+    }
+    this.watterCircuits.splice(index, 1)
+    return {
+      message: 'Circuito de Agua Eliminado',
+      id
+    }
+  }
 }
 
 module.exports = WatterCircuitService;

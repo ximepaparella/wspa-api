@@ -12,7 +12,7 @@ constructor() {
         price: 13000,
         salePrice: 10000,
         giftLinkId: 148,
-        category: 'Tratamientos Faciales'
+        category: 'Tratamientos Faciales',
     },
     {
         id: "2",

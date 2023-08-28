@@ -13,6 +13,7 @@ class SpaDaysService {
       coffeeBreak: true,
       giftVoucherOnlyId: 583,
       giftVoucherDoubleId: 584,
+      image: 'http://placeholder.com/300x300',
 
       services: [
         {
@@ -62,6 +63,7 @@ class SpaDaysService {
       coffeeBreak: true,
       giftVoucherOnlyId: 583,
       giftVoucherDoubleId: 584,
+      image: 'http://placeholder.com/300x300',
 
       services: [
         {
