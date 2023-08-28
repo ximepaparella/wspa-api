@@ -1,3 +1,5 @@
+const boom = require ('@hapi/boom');
+
 class WatterCircuitService {
   constructor() {
     this.watterCircuits = [

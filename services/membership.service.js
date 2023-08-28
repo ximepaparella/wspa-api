@@ -1,3 +1,4 @@
+const boom = require ('@hapi/boom');
 class MembershipService {
   constructor() {
     this.memberships = [
@@ -96,13 +97,17 @@ class MembershipService {
   }
 
   async findOne(id) {
-    return this.memberships.find((membership) => membership.id === id);
+    const membership = this.memberships.find((membership) => membership.id === id);
+    if(!membership) {
+      throw boom.notFound('Membership not found');
+    }
+    return membership;
   }
 
   async update(id, changes) {
     const index = this.memberships.findIndex((membership) => membership.id === id);
     if (index === -1) {
-      throw new Error('Membership not found');
+      throw boom.notFound('Membership not found');
     }
     const membership = this.memberships[index];
     this.memberships[index] = {
@@ -115,7 +120,7 @@ class MembershipService {
   async delete(id) {
     const index = this.memberships.findIndex((membership) => membership.id === id);
     if (index === -1) {
-      throw new Error('Membership not found');
+      throw boom.notFound('Membership not found');
     }
     this.memberships.splice(index, 1)
     return {

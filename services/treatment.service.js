@@ -1,3 +1,5 @@
+const boom = require ('@hapi/boom');
+
 class TreatmentService {
 constructor() {
   this.treatments = [
@@ -95,13 +97,17 @@ async find() {
 }
 
 async findOne(id){
-  return this.treatments.find(treatment => treatment.id === id);
+  const treatment = this.treatments.find(treatment => treatment.id === id);
+  if(!treatment) {
+    throw boom.notFound('Treatment not found');
+  }
+  return treatment;
 }
 
 async update(id, changes) {
   const index = this.treatments.findIndex(treatment => treatment.id === id);
   if(index === -1) {
-    throw new Error('Treatment not found');
+    throw boom.notFound('Treatment not found');
   }
     const treatment = this.treatments[index];
     this.treatments[index] = {
@@ -114,7 +120,7 @@ async update(id, changes) {
 async delete(id) {
   const index = this.treatments.findIndex(treatment => treatment.id === id);
   if(index === -1) {
-    throw new Error('Treatment not found');
+    throw boom.notFound('Treatment not found');
   }
   this.treatments.splice(index, 1)
   return {

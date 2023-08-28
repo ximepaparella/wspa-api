@@ -1,3 +1,4 @@
+const boom = require ('@hapi/boom');
 class InformationService {
   constructor() {
     this.information = [
@@ -36,7 +37,11 @@ class InformationService {
   }
 
   async findOne(id) {
-    return this.information.find((info) => info.id === id);
+    const information = this.information.find((info) => info.id === id);
+    if(!information) {
+      throw boom.notFound('Information not found');
+    }
+    return information;
   }
 
   async update(changes) {

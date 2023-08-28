@@ -3,8 +3,8 @@ const router = expresss.Router();
 const WatterCircuitService = require('../services/watterCircuit.service');
 const service = new WatterCircuitService();
 
-router.get('/', (req, res) => {
-  const watterCircuits = service.find();
+router.get('/', async (req, res) => {
+  const watterCircuits = await service.find();
   res.json(watterCircuits);
 });
 

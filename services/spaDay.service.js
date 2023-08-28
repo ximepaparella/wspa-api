@@ -1,3 +1,4 @@
+const boom = require ('@hapi/boom');
 class SpaDaysService {
   constructor() {
     this.spaDays = [ {
@@ -114,13 +115,17 @@ class SpaDaysService {
   }
 
   async findOne(id){
-    return this.spaDays.find(spaDay => spaDay.id === id);
+    const spaDay = this.spaDays.find(spaDay => spaDay.id === id);
+    if(!spaDay) {
+      throw boom.notFound('Spa Day not found');
+    }
+    return spaDay;
   }
 
   async update(id, changes) {
     const index = this.spaDays.findIndex(spaDay => spaDay.id === id);
     if(index === -1) {
-      throw new Error('SpaDay not found');
+      throw boom.notFound('SpaDay not found');
     }
     const spaDay = this.spaDays[index];
     this.spaDays[index] = {
@@ -133,7 +138,7 @@ class SpaDaysService {
   async delete(id) {
     const index = this.spaDays.findIndex(spaDay => spaDay.id === id);
     if(index === -1) {
-      throw new Error('SpaDay not found');
+      throw boom.notFound('SpaDay not found');
     }
     this.spaDays.splice(index, 1)
     return {
