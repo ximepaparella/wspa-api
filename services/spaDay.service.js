@@ -12,8 +12,7 @@ class SpaDaysService {
       priceDouble: 59400,
       coffeeBreak: true,
       giftVoucherOnlyId: 583,
-      giftVoucherDoubleId: 584,
-      image: 'http://placeholder.com/300x300',
+      giftVoucherDoubleId: 584
 
       services: [
         {
