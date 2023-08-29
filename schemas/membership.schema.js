@@ -2,10 +2,10 @@ const Joi = require('joi');
 
 const id = Joi.string().min(1);
 const validationText = Joi.string().min(1).max(100);
-const featuredImage = Joi.string().uri.min(1).max(300);
+const featuredImage = Joi.string().min(1).max(300);
 const name = Joi.string().min(1).max(30);
 const price = Joi.number().min(1);
-const giftVoucherLink = Joi.string().uri.min(1).max(300);
+const giftVoucherLink = Joi.string().min(1).max(300);
 const services = Joi.array().items(Joi.object({
   id: Joi.number().min(1),
   name: Joi.string().min(1).max(100),

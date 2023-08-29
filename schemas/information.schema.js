@@ -14,7 +14,7 @@ const times = Joi.object({
 });
 const copyright = Joi.string().min(1);
 const whatsappText = Joi.string().min(1);
-const whatsappLink = Joi.string().uri.min(1);
+const whatsappLink = Joi.string().min(1);
 
 const createInformationSchema = Joi.object({
   address: address.required(),

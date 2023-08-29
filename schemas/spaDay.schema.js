@@ -2,7 +2,7 @@ const Joi  = require('joi');
 
 const id = Joi.string().min(1);
 const featuredHome = Joi.boolean();
-const featuredImage = Joi.string().uri.min(1).max(300);
+const featuredImage = Joi.string().min(1).max(300);
 const discount = Joi.string().min(1).max(100);
 const name = Joi.string().min(1).max(30);
 const duration = Joi.string().min(1).max(30);
