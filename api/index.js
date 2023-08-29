@@ -10,7 +10,7 @@ const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/err
 
 // Defino mi APP y mi puerto
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Defino que mi app va a usar json para parsear los datos.
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use(express.json());
 const whiteList = ['http://localhost:3000', 'http://localhost:8080', 'https://wspa.com.ar'];
 const options = {
   origin: (origin, callback) => {
-    if(whiteList.includes(origin)) {
+    if(whiteList.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('No permitido'));
@@ -27,7 +27,7 @@ const options = {
 }
 app.options('*', cors(options));
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.send('Hello World!');
 });
 
