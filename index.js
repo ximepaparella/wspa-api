@@ -25,7 +25,7 @@ const options = {
     }
   }
 }
-app.use(cors(options  ));
+app.options('*', cors(options));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
