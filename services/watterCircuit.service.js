@@ -1,16 +1,14 @@
 const boom = require ('@hapi/boom');
 
+const pool = require('../libs/postgres.pool');
+
 class WatterCircuitService {
   constructor() {
-    this.watterCircuits = [
-      {
-        id: "1",
-        name: 'Circuito de Aguas',
-        includes: 'INCLUYE UNA INFUSIÓN + PASTELERÍA DEL DÍA',
-        clientPrice: 9000,
-        visitorPrice: 15000,
-      },
-    ];
+    this.watterCircuits = [];
+    this.pool = pool;
+    this.pool.on('error', (err) => {
+      console.log('Unexpected error on idle client', err)
+    });
   }
 
   create(data) {
@@ -23,7 +21,9 @@ class WatterCircuitService {
   }
 
   async find() {
-    return this.watterCircuits;
+    const query = 'SELECT * FROM watter_circuits';
+    const rta = await this.pool.query(query);
+    return rta.rows;
   }
 
   async findOne(id){

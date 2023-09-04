@@ -1,87 +1,13 @@
 const boom = require ('@hapi/boom');
+
+const pool = require('../libs/postgres.pool');
 class MembershipService {
   constructor() {
-    this.memberships = [
-      {
-        id: "1",
-        validationText: 'VÁLIDO DURANTE 30 DÍAS.',
-        featuredImage: 'https://via.placeholder.com/300x200',
-        name: 'MEMBRESÍA WSPA',
-        price: 15000,
-        giftVoucherLink:
-          'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380847b62931d017b9c68ce3b29cc',
-          image: 'http://placeholder.com/300x300',
-        services: [
-          {
-            id: 1,
-            name: 'Piscina in/out climatizada con cascadas cervicales e hidromasaje integrado',
-          },
-          {
-            id: 2,
-            name: 'Sala de relax con tumbonas térmicas',
-          },
-          {
-            id: 3,
-            name: 'Sala de hidratación',
-          },
-          {
-            id: 4,
-            name: 'Terraza con solárium y reposeras con vista a la Bahía Grande',
-          },
-        ],
-        treatments: [
-          {
-            id: 1,
-            name: '1 sesión de masajes a Elección 50 durante todo el mes contratado.',
-            duration: 50,
-          },
-          {
-            id: 3,
-            name: 'Acceso al Circuito de Aguas 120 durante todo el mes contratado',
-            duration: 120,
-          },
-        ],
-      },
-      {
-        id: "2",
-        validationText: 'VÁLIDO DURANTE 30 DÍAS.',
-        featuredImage: 'https://via.placeholder.com/300x200',
-        name: 'MEMBRESÍA WSPA',
-        price: 15000,
-        giftVoucherLink:
-          'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380847b62931d017b9c68ce3b29cc',
-        services: [
-          {
-            id: 1,
-            name: 'Piscina in/out climatizada con cascadas cervicales e hidromasaje integrado',
-          },
-          {
-            id: 2,
-            name: 'Sala de relax con tumbonas térmicas',
-          },
-          {
-            id: 3,
-            name: 'Sala de hidratación',
-          },
-          {
-            id: 4,
-            name: 'Terraza con solárium y reposeras con vista a la Bahía Grande',
-          },
-        ],
-        treatments: [
-          {
-            id: 1,
-            name: '1 sesión de masajes a Elección 50 durante todo el mes contratado.',
-            duration: 50,
-          },
-          {
-            id: 3,
-            name: 'Acceso al Circuito de Aguas 120 durante todo el mes contratado',
-            duration: 120,
-          },
-        ],
-      },
-    ];
+    this.memberships = [];
+    this.pool = pool;
+    this.pool.on('error', (err) => {
+      console.log('Unexpected error on idle client', err)
+    });
   }
 
   async create(data) {
@@ -94,7 +20,9 @@ class MembershipService {
   }
 
   async find() {
-    return this.memberships;
+    const query = 'SELECT * FROM memberships';
+    const rta = await this.pool.query(query);
+    return rta.rows;
   }
 
   async findOne(id) {
