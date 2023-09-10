@@ -19,7 +19,7 @@ class UsersService {
   }
 
   async find() {
-    const query = 'SELECT * FROM users';
+    const query = 'SELECT * FROM public.users';
     const rta = await this.pool.query(query);
     return rta.rows;
   }
