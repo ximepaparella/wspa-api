@@ -1,14 +1,10 @@
 const boom = require ('@hapi/boom');
 
-const pool = require('../libs/postgres.pool');
+const {models}  = require('../libs/sequelize');
 
 class WatterCircuitService {
   constructor() {
-    this.watterCircuits = [];
-    this.pool = pool;
-    this.pool.on('error', (err) => {
-      console.log('Unexpected error on idle client', err)
-    });
+
   }
 
   create(data) {
@@ -21,9 +17,8 @@ class WatterCircuitService {
   }
 
   async find() {
-    const query = 'SELECT * FROM watter_circuits';
-    const rta = await this.pool.query(query);
-    return rta.rows;
+    const rta = await models.WatterCircuit.findAll();
+    return rta;
   }
 
   async findOne(id){

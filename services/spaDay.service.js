@@ -1,14 +1,10 @@
 const boom = require ('@hapi/boom');
 
-const pool = require('../libs/postgres.pool');
+const {models}  = require('../libs/sequelize');
 
 class SpaDaysService {
   constructor() {
-    this.spaDays = [];
-    this.pool = pool;
-    this.pool.on('error', (err) => {
-      console.log('Unexpected error on idle client', err)
-    });
+
   }
 
   async create(data) {
@@ -21,9 +17,8 @@ class SpaDaysService {
   }
 
   async find() {
-    const query = 'SELECT * FROM spa_days';
-    const rta = await this.pool.query(query);
-    return rta.rows;
+    const rta = await models.SpaDay.findAll();
+    return rta;
   }
 
   async findOne(id){

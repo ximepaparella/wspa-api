@@ -1,6 +1,6 @@
 const boom = require ('@hapi/boom');
 
-const sequelize = require('../libs/sequelize');
+const {models}  = require('../libs/sequelize');
 
 class TreatmentService {
 constructor() {
@@ -17,9 +17,8 @@ create(data) {
 }
 
 async find() {
-  const query = 'SELECT * FROM public.treatments';
-  const [data] = await sequelize.query(query);
-  return data;
+  const rta = await models.Treatment.findAll();
+  return rta;
 }
 
 async findOne(id){
