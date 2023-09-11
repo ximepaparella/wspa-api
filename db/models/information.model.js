@@ -17,22 +17,22 @@ const InformationSchema = {
     allowNull: false,
     type: DataTypes.STRING(50),
   },
-  times: {
-    allowNull: false,
-    type: DataTypes.ARRAY(DataTypes.STRING(50)),
-  },
+  // times: {
+  //   allowNull: false,
+  //   type: DataTypes.ARRAY(DataTypes.STRING(50)),
+  // },
   copyright:{
     allowNull: false,
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(150),
   },
   whatsappText: {
     allowNull: false,
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(150),
     field: 'whatsapp_text',
   },
   whatsappLink: {
     allowNull: false,
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(150),
     field: 'whatsapp_link',
   },
   facebookLink: {

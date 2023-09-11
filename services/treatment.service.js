@@ -8,12 +8,8 @@ constructor() {
 }
 
 create(data) {
-  const newTreatment = {
-    id: Math.random().toString(36).substr(2, 9),
-    ...data
-   }
-   this.treatments.push(newTreatment);
-   return newTreatment;
+ const newTreatment = models.Treatment.create(data);
+  return newTreatment;
 }
 
 async find() {
@@ -22,36 +18,23 @@ async find() {
 }
 
 async findOne(id){
-  const treatment = this.treatments.find(treatment => treatment.id === id);
-  if(!treatment) {
+  const treatment = await models.Treatment.findByPk(id);
+  if (!treatment) {
     throw boom.notFound('Treatment not found');
   }
   return treatment;
 }
 
 async update(id, changes) {
-  const index = this.treatments.findIndex(treatment => treatment.id === id);
-  if(index === -1) {
-    throw boom.notFound('Treatment not found');
-  }
-    const treatment = this.treatments[index];
-    this.treatments[index] = {
-      ...treatment,
-      ...changes
-    }
-    return this.treatments[index];
+  const treatment = await this.findOne(id);
+  const rta = await treatment.update(changes);
+  return rta;
 }
 
 async delete(id) {
-  const index = this.treatments.findIndex(treatment => treatment.id === id);
-  if(index === -1) {
-    throw boom.notFound('Treatment not found');
-  }
-  this.treatments.splice(index, 1)
-  return {
-    message: 'Producto Eliminado',
-    id
-  }
+  const treatment = await this.findOne(id);
+  await treatment.destroy();
+  return {id};
 }
 
 }

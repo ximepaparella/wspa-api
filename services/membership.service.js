@@ -8,11 +8,7 @@ class MembershipService {
   }
 
   async create(data) {
-    const newMembership = {
-      id: Math.random().toString(36).substr(2, 9),
-      ...data
-    }
-    this.memberships.push(newMembership);
+    const newMembership = await models.Membership.create(data);
     return newMembership;
   }
 
@@ -22,36 +18,23 @@ class MembershipService {
   }
 
   async findOne(id) {
-    const membership = this.memberships.find((membership) => membership.id === id);
-    if(!membership) {
+    const membership = await models.Membership.findByPk(id);
+    if (!membership) {
       throw boom.notFound('Membership not found');
     }
     return membership;
   }
 
   async update(id, changes) {
-    const index = this.memberships.findIndex((membership) => membership.id === id);
-    if (index === -1) {
-      throw boom.notFound('Membership not found');
-    }
-    const membership = this.memberships[index];
-    this.memberships[index] = {
-      ...membership,
-      ...changes,
-    }
-    return this.memberships[index];
+    const membership = await this.findOne(id);
+    const rta = await membership.update(changes);
+    return rta;
   }
 
   async delete(id) {
-    const index = this.memberships.findIndex((membership) => membership.id === id);
-    if (index === -1) {
-      throw boom.notFound('Membership not found');
-    }
-    this.memberships.splice(index, 1)
-    return {
-      message: 'Membership deleted',
-      id
-    }
+    const membership = await this.findOne(id);
+    await membership.destroy();
+    return {id};
   }
 }
 

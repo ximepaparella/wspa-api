@@ -11,7 +11,7 @@ const MembershipSchema = {
   },
   name: {
     allowNull: false,
-    type: DataTypes.STRING(50)
+    type: DataTypes.STRING
   },
   validationText:{
     allowNull: false,
@@ -24,25 +24,25 @@ const MembershipSchema = {
   },
   featuredImage:{
     allowNull: true,
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
   },
   giftVoucherLink: {
     allowNull: true,
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     field: 'gift_voucher_link',
   },
-  services:{
-    allowNull: false,
-    type: DataTypes.ARRAY(DataTypes.STRING(50)),
-  },
-  treatments: {
-    allowNull: false,
-    type: DataTypes.ARRAY(DataTypes.STRING(50)),
-  },
+  // services:{
+  //   allowNull: false,
+  //   type: DataTypes.ARRAY(DataTypes.STRING),
+  // },
+  // treatments: {
+  //   allowNull: false,
+  //   type: DataTypes.ARRAY(DataTypes.STRING),
+  // },
   createdAt: {
     allowNull: false,
     field: 'created_at',
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     defaultValue: Sequelize.NOW,
   },
   updatedAt: {

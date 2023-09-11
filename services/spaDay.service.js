@@ -8,12 +8,8 @@ class SpaDaysService {
   }
 
   async create(data) {
-    const newSpaDay = {
-      id: Math.random().toString(36).substr(2, 9),
-      ...data
-    }
-    this.spaDays.push(newSpaDay);
-    return newSpaDay;
+   const newSpaDay = await models.SpaDay.create(data);
+   return newSpaDay
   }
 
   async find() {
@@ -22,36 +18,23 @@ class SpaDaysService {
   }
 
   async findOne(id){
-    const spaDay = this.spaDays.find(spaDay => spaDay.id === id);
-    if(!spaDay) {
-      throw boom.notFound('Spa Day not found');
+    const spaDay = await models.SpaDay.findByPk(id);
+    if (!spaDay) {
+      throw boom.notFound('SpaDay not found');
     }
     return spaDay;
   }
 
   async update(id, changes) {
-    const index = this.spaDays.findIndex(spaDay => spaDay.id === id);
-    if(index === -1) {
-      throw boom.notFound('SpaDay not found');
-    }
-    const spaDay = this.spaDays[index];
-    this.spaDays[index] = {
-      ...spaDay,
-      ...changes
-    }
-    return this.spaDays[index];
+    const spaDay = await this.findOne(id);
+    const rta = await spaDay.update(changes);
+    return rta;
   }
 
   async delete(id) {
-    const index = this.spaDays.findIndex(spaDay => spaDay.id === id);
-    if(index === -1) {
-      throw boom.notFound('SpaDay not found');
-    }
-    this.spaDays.splice(index, 1)
-    return {
-      message: 'SpaDay Eliminado',
-      id
-    }
+    const spaDay = await this.findOne(id);
+    await spaDay.destroy();
+    return {id};
   }
 
 }

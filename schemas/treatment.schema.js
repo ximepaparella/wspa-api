@@ -9,6 +9,8 @@ const price = Joi.number().min(10);
 const salePrice = Joi.number().min(10);
 const giftLinkId = Joi.number().min(1);
 const category = Joi.string().min(3).max(50);
+const createdAt = Joi.date();
+const updatedAt = Joi.date();
 
 const createTreatmentSchema = Joi.object({
   name: name.required(),
@@ -19,6 +21,7 @@ const createTreatmentSchema = Joi.object({
   salePrice,
   giftLinkId,
   category: category.required(),
+  createdAt: createdAt.required(),
 });
 
 const updateTreatmentSchema = Joi.object({
@@ -30,6 +33,7 @@ const updateTreatmentSchema = Joi.object({
   salePrice,
   giftLinkId,
   category,
+  updatedAt,
 });
 
 const getTreatmentSchema = Joi.object({

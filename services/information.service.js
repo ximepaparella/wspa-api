@@ -6,10 +6,7 @@ class InformationService {
   }
 
   async create(data) {
-    const newInformation = {
-      ...data,
-    }
-    this.information.push(newInformation);
+   const newInformation = await models.Information.create(data);
     return newInformation;
   }
 
@@ -19,23 +16,24 @@ class InformationService {
   }
 
   async findOne(id) {
-    const information = this.information.find((info) => info.id === id);
-    if(!information) {
+    const information = await models.Information.findByPk(id);
+    if (!information) {
       throw boom.notFound('Information not found');
     }
     return information;
   }
 
   async update(changes) {
-   const information = this.information[0];
-   const informationUpdated = {
-      ...information,
-      ...changes
-   }
-   return informationUpdated;
+    const information = await this.findOne();
+    const rta = await information.update(changes);
+    return rta;
   }
 
-  delete() {}
+ async delete(id) {
+    const information = await this.findOne();
+    await information.destroy();
+    return {id};
+  }
 }
 
 module.exports = InformationService;
