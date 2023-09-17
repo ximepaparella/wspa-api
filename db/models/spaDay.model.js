@@ -24,7 +24,7 @@ const SpaDaySchema = {
     field: 'featured_home',
   },
   description: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.TEXT(500),
   },
   priceOnly: {
@@ -43,7 +43,7 @@ const SpaDaySchema = {
   },
   discount: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING(50),
   },
   giftVoucherOnlyId: {
     allowNull: false,
@@ -56,11 +56,11 @@ const SpaDaySchema = {
     field: 'gift_voucher_double_id',
   },
   services: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.ARRAY(DataTypes.STRING(50)),
   },
   treatments: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.ARRAY(DataTypes.STRING(50)),
   },
   createdAt: {
