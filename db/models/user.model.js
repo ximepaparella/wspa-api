@@ -24,7 +24,8 @@ const UserSchema = {
   },
   role: {
     allowNull: false,
-    type: DataTypes.STRING(50)
+    type: DataTypes.STRING(50),
+    defaultValue: 'customer'
   },
   createdAt: {
     allowNull: false,
