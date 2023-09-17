@@ -6,7 +6,7 @@ const cors = require('cors');
 // Importo el router Api en el index.js para controlar las rutas con single responsability
 const routerApi = require('./routes');
 
-const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+const { logErrors, errorHandler, boomErrorHandler, ormErrorHanlder } = require('./middlewares/error.handler');
 
 // Defino mi APP y mi puerto
 const app = express();
@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
 // Defino que mi app va a usar el routerApi
 routerApi(app);
 app.use(logErrors);
+app.use(ormErrorHanlder)
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
