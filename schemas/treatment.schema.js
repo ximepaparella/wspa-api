@@ -12,6 +12,9 @@ const category = Joi.string().min(3).max(50);
 const createdAt = Joi.date();
 const updatedAt = Joi.date();
 
+const limit = Joi.number();
+const offset = Joi.number();
+
 const createTreatmentSchema = Joi.object({
   name: name.required(),
   aditionals,
@@ -40,4 +43,9 @@ const getTreatmentSchema = Joi.object({
   id: id.required(),
 });
 
-module.exports = {createTreatmentSchema, updateTreatmentSchema, getTreatmentSchema};
+const queryTreatmentSchema = Joi.object({
+  limit,
+  offset
+});
+
+module.exports = {createTreatmentSchema, updateTreatmentSchema, getTreatmentSchema, queryTreatmentSchema};

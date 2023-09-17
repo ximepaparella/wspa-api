@@ -12,8 +12,17 @@ create(data) {
   return newTreatment;
 }
 
-async find() {
-  const rta = await models.Treatment.findAll();
+async find(query) {
+  const options = {
+
+  };
+  if (query.limit) {
+    options.limit = parseInt(query.limit, 10);
+  }
+  if (query.offset) {
+    options.offset = parseInt(query.offset, 10);
+  }
+  const rta = await models.Treatment.findAll(options);
   return rta;
 }
 

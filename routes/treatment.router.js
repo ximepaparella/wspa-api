@@ -5,12 +5,15 @@ const {
   getTreatmentSchema,
   updateTreatmentSchema,
   createTreatmentSchema,
+  queryTreatmentSchema
 } = require('../schemas/treatment.schema');
 const router = express.Router();
 const service = new TreatmentService();
 
-router.get('/', async (req, res) => {
-  const treatments = await service.find();
+router.get('/',
+validatorHandler(queryTreatmentSchema, 'query'),
+async (req, res) => {
+  const treatments = await service.find(req.query);
   res.json(treatments);
 });
 
