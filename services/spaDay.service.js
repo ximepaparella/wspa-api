@@ -9,7 +9,6 @@ class SpaDaysService {
 
   async create(data) {
    const newSpaDay = await models.SpaDay.create(data);
-   console.log(data);
    return newSpaDay
   }
 

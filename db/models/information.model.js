@@ -45,39 +45,39 @@ const InformationSchema = {
   },
   policesText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   bookingsText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   cancelingText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   pricesText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   circuitText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   paymentText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   giftText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   personalCareText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   },
   pregnantText: {
     allowNull: false,
-    type: DataTypes.STRING(250),
+    type: DataTypes.TEXT,
   }
 }
 

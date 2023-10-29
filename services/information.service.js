@@ -15,7 +15,7 @@ class InformationService {
     return rta;
   }
 
-  async findOne(id) {
+ async findOne(id) {
     const information = await models.Information.findByPk(id);
     if (!information) {
       throw boom.notFound('Information not found');
@@ -23,14 +23,14 @@ class InformationService {
     return information;
   }
 
-  async update(changes) {
-    const information = await this.findOne();
+  async update(id, changes) {
+    const information = await this.findOne(id);
     const rta = await information.update(changes);
     return rta;
   }
 
  async delete(id) {
-    const information = await this.findOne();
+    const information = await this.findOne(id);
     await information.destroy();
     return {id};
   }
