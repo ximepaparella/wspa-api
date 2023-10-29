@@ -42,6 +42,42 @@ const InformationSchema = {
   instagramLink: {
     allowNull: false,
     type: DataTypes.STRING(50),
+  },
+  policesText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  bookingsText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  cancelingText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  pricesText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  circuitText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  paymentText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  giftText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  personalCareText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
+  },
+  pregnantText: {
+    allowNull: false,
+    type: DataTypes.STRING(250),
   }
 }
 
