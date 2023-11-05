@@ -15,17 +15,18 @@ const port = 3000;
 // Defino que mi app va a usar json para parsear los datos.
 app.use(express.json());
 
-const whiteList = ['http://localhost:3000', 'http://localhost:8080', 'https://wspa.com.ar'];
-const options = {
+const whiteList = ['http://localhost:3001', 'http://localhost:8080', 'https://wspa.com.ar'];
+const corsOptions = {
   origin: (origin, callback) => {
-    if(whiteList.includes(origin)) {
+    if (whiteList.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('No permitido'));
+      callback(new Error('Not allowed by CORS'));
     }
   }
-}
-app.options('*', cors(options));
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
