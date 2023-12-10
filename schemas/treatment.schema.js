@@ -2,12 +2,12 @@ const Joi = require('joi');
 
 const id = Joi.string().min(1);
 const name = Joi.string().min(1).max(30);
-const aditionals = Joi.string().min(3).max(100);
+const aditionals = Joi.string().min(3).max(100).allow('').empty('');
 const duration = Joi.number().min(3).max(100);
 const description = Joi.string().min(3).max(500);
 const price = Joi.number().min(10);
-const salePrice = Joi.number().min(10);
-const giftLinkId = Joi.number().min(1);
+const salePrice = Joi.number();
+const giftLinkId = Joi.number();
 const category = Joi.string().min(3).max(50);
 const createdAt = Joi.date();
 const updatedAt = Joi.date();
