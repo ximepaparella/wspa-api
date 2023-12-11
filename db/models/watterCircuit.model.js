@@ -28,6 +28,11 @@ const WatterCircuitSchema = {
     type: DataTypes.INTEGER,
     field: 'visitor_price',
   },
+  times: {
+    allowNull: false,
+    type: DataTypes.STRING(150),
+    field: 'times'
+  },
   createdAt: {
     allowNull: false,
     field: 'created_at',

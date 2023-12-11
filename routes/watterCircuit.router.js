@@ -44,7 +44,7 @@ router.post(
 
 router.patch(
   '/:id',
-  validatorHandler(getWatterCircuitSchema, 'params'),
+  validatorHandler(getWatterCircuitSchema , 'params'),
   validatorHandler(updateWatterCircuitSchema, 'body'),
   async (req, res, next) => {
     try {
