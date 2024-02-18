@@ -11,6 +11,7 @@ const giftLinkId = Joi.number();
 const category = Joi.string().min(3).max(50);
 const createdAt = Joi.date();
 const updatedAt = Joi.date();
+const image = Joi.string().allow(null);
 
 const limit = Joi.number();
 const offset = Joi.number();
@@ -18,6 +19,7 @@ const offset = Joi.number();
 const createTreatmentSchema = Joi.object({
   name: name.required(),
   aditionals,
+  image,
   duration: duration.required(),
   description: description.required(),
   price: price.required(),
@@ -29,6 +31,7 @@ const createTreatmentSchema = Joi.object({
 
 const updateTreatmentSchema = Joi.object({
   name,
+  image,
   aditionals,
   duration,
   description,

@@ -1,4 +1,5 @@
 const express = require('express');
+const uploadMiddleware = require('./middlewares/multer.handler'); // Adjust the path as needed
 
 //importo la libreria cors para poder usarla en mi app
 const cors = require('cors');
@@ -42,6 +43,9 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+// Use the Multer middleware for image uploads
+app.use(uploadMiddleware.single('image'));
 
 
 

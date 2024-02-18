@@ -1,4 +1,4 @@
-const{ Model, DataTypes, Sequelize} = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const INFORMATION_TABLE = 'information';
 
@@ -7,7 +7,7 @@ const InformationSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   address: {
     allowNull: false,
@@ -17,11 +17,11 @@ const InformationSchema = {
     allowNull: false,
     type: DataTypes.STRING(50),
   },
-  // times: {
-  //   allowNull: false,
-  //   type: DataTypes.ARRAY(DataTypes.STRING(50)),
-  // },
-  copyright:{
+  times: {
+    allowNull: false,
+    type: DataTypes.STRING(150),
+  },
+  copyright: {
     allowNull: false,
     type: DataTypes.STRING(150),
   },
@@ -78,8 +78,8 @@ const InformationSchema = {
   pregnantText: {
     allowNull: false,
     type: DataTypes.TEXT,
-  }
-}
+  },
+};
 
 class Information extends Model {
   static associate(models) {
@@ -90,8 +90,8 @@ class Information extends Model {
       sequelize,
       tableName: INFORMATION_TABLE,
       modelName: 'Information',
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 
