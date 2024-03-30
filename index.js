@@ -1,5 +1,6 @@
 const express = require('express');
 const uploadMiddleware = require('./middlewares/multer.handler'); // Adjust the path as needed
+const AWS = require('aws-sdk');
 
 //importo la libreria cors para poder usarla en mi app
 const cors = require('cors');
@@ -7,7 +8,12 @@ const cors = require('cors');
 // Importo el router Api en el index.js para controlar las rutas con single responsability
 const routerApi = require('./routes');
 
-const { logErrors, errorHandler, boomErrorHandler, ormErrorHanlder } = require('./middlewares/error.handler');
+const {
+  logErrors,
+  errorHandler,
+  boomErrorHandler,
+  ormErrorHanlder,
+} = require('./middlewares/error.handler');
 
 // Defino mi APP y mi puerto
 const app = express();
@@ -16,7 +22,11 @@ const port = 3000;
 // Defino que mi app va a usar json para parsear los datos.
 app.use(express.json());
 
-const whiteList = ['http://localhost:3001', 'http://localhost:8080', 'https://wspa.com.ar'];
+const whiteList = [
+  'http://localhost:3001',
+  'http://localhost:8080',
+  'https://wspa.com.ar',
+];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whiteList.includes(origin) || !origin) {
@@ -24,7 +34,7 @@ const corsOptions = {
     } else {
       callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
 };
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
@@ -36,7 +46,7 @@ app.get('/', (req, res) => {
 // Defino que mi app va a usar el routerApi
 routerApi(app);
 app.use(logErrors);
-app.use(ormErrorHanlder)
+app.use(ormErrorHanlder);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
@@ -44,8 +54,15 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
+// Configure AWS SDK with your credentials
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
+
+// Create an S3 instance
+const s3 = new AWS.S3();
+
 // Use the Multer middleware for image uploads
 app.use(uploadMiddleware.single('image'));
-
-
-

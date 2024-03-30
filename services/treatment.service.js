@@ -35,17 +35,20 @@ class TreatmentService {
     return newTreatment;
   }
 
-  async find(query) {
-    const options = {};
-    if (query.limit) {
-      options.limit = parseInt(query.limit, 10);
-    }
-    if (query.offset) {
-      options.offset = parseInt(query.offset, 10);
-    }
-    const rta = await models.Treatment.findAll(options);
-    return rta;
+async find(query) {
+  const options = {};
+  if (query.limit) {
+    options.limit = parseInt(query.limit, 10);
   }
+  if (query.offset) {
+    options.offset = parseInt(query.offset, 10);
+  }
+  if (query.category) {
+    options.where = { category: query.category }; // Filter by category
+  }
+  const rta = await models.Treatment.findAll(options);
+  return rta;
+}
 
   async findOne(id) {
     const treatment = await models.Treatment.findByPk(id);
