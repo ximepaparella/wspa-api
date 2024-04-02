@@ -1,8 +1,8 @@
-const Joi  = require('joi');
+const Joi = require('joi');
 
 const id = Joi.string().min(1);
 const featuredHome = Joi.boolean();
-const featuredImage = Joi.string().min(1).max(300);
+const featuredImage = Joi.string().min(1).max(900);
 const discount = Joi.string().min(1).max(100);
 const name = Joi.string().min(1).max(30);
 const duration = Joi.string().min(1).max(30);
@@ -55,11 +55,11 @@ const updateSpaDaySchema = Joi.object({
   description,
   // services,
   // treatments
-  updatedAt
+  updatedAt,
 });
 
 const getSpaDaySchema = Joi.object({
   id: id.required(),
 });
 
-module.exports = {createSpaDaySchema, updateSpaDaySchema, getSpaDaySchema};
+module.exports = { createSpaDaySchema, updateSpaDaySchema, getSpaDaySchema };
