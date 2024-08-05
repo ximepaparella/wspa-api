@@ -9,7 +9,7 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-const bucketName = 'wspa-images'; // Your S3 bucket name
+const bucketName = process.env.AWS_S3_BUCKET_NAME; // Your S3 bucket name
 
 /**
  * Uploads a file to a specified 'folder' in S3 based on entity type.

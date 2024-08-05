@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 const MembershipService = require('../services/membership.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const uploadFile = require('../services/uploadImages.service'); // Adjust the path to where you saved uploadService.js
@@ -117,6 +119,24 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
   } catch (error) {
     console.error('Error uploading image:', error);
     next(error);
+  }
+});
+
+router.delete('/upload/:key', async (req, res, next) => {
+  try {
+    const { key } = req.params; // Get the S3 object key from the request parameters
+
+    const deleteParams = {
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: key,
+    };
+
+    await s3.deleteObject(deleteParams).promise();
+
+    res.send({ message: 'Image deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).send({ error: 'Failed to delete image' });
   }
 });
 
