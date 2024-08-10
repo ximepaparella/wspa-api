@@ -1,6 +1,5 @@
 const express = require('express');
-const uploadMiddleware = require('./middlewares/multer.handler'); // Adjust the path as needed
-const AWS = require('aws-sdk');
+const uploadMiddleware = require('./middlewares/multer.handler');
 
 //importo la libreria cors para poder usarla en mi app
 const cors = require('cors');
@@ -53,16 +52,6 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-// Configure AWS SDK with your credentials
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-});
-
-// Create an S3 instance
-const s3 = new AWS.S3();
 
 // Use the Multer middleware for image uploads
 app.use(uploadMiddleware.single('image'));
