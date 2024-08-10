@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const id = Joi.string().min(1);
 const featuredHome = Joi.boolean();
-const featuredImage = Joi.string().min(1).max(900);
+const featuredImage = Joi.string().min(1).max(900).allow(null); // Allow null for updates
 const discount = Joi.string().min(1).max(100);
 const name = Joi.string().min(1).max(30);
 const duration = Joi.string().min(1).max(30);
@@ -12,21 +12,12 @@ const coffeeBreak = Joi.boolean();
 const giftVoucherOnlyId = Joi.number().min(1);
 const giftVoucherDoubleId = Joi.number().min(1);
 const description = Joi.string().min(1).max(30);
-// const services = Joi.array().items(Joi.object({
-//   id: Joi.number().min(1),
-//   name: Joi.string().min(1).max(100),
-// }));
-// const treatments = Joi.array().items(Joi.object({
-//   id: Joi.number().min(1),
-//   name: Joi.string().min(1).max(100),
-//   duration: Joi.number().min(1),
-// }));
 const createdAt = Joi.date();
 const updatedAt = Joi.date();
 
 const createSpaDaySchema = Joi.object({
   featuredHome,
-  featuredImage: featuredImage.required(),
+  featuredImage: featuredImage.required(), // Required for creation
   discount,
   name: name.required(),
   duration: duration.required(),
@@ -36,8 +27,6 @@ const createSpaDaySchema = Joi.object({
   giftVoucherOnlyId: giftVoucherOnlyId.required(),
   giftVoucherDoubleId: giftVoucherDoubleId.required(),
   description,
-  // services: services.required(),
-  // treatments: treatments.required()
   createdAt: createdAt.required(),
 });
 
@@ -53,8 +42,6 @@ const updateSpaDaySchema = Joi.object({
   giftVoucherOnlyId,
   giftVoucherDoubleId,
   description,
-  // services,
-  // treatments
   updatedAt,
 });
 

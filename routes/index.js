@@ -1,3 +1,5 @@
+// routes/index.js
+
 const express = require('express');
 const treatmentsRouter = require('./treatment.router');
 const usersRouter = require('./user.router');
@@ -5,6 +7,7 @@ const spaDaysRouter = require('./spaDay.router');
 const informationRouter = require('./information.router');
 const membershipRouter = require('./membership.router');
 const watterCircuitRouter = require('./watterCircuit.router');
+const uploadRouter = require('./upload.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -17,6 +20,7 @@ function routerApi(app) {
   router.use('/information', informationRouter);
   router.use('/memberships', membershipRouter);
   router.use('/watter-circuit', watterCircuitRouter);
+  router.use('/uploads', uploadRouter);
 }
 
 module.exports = routerApi;
