@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
 const MembershipService = require('../services/membership.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const uploadFile = require('../services/uploadImages.service'); // Adjust the path to where you saved uploadService.js
-
-// Set up Multer with memory storage
-const upload = multer({ storage: multer.memoryStorage() });
 
 const {
   getMembershipSchema,
@@ -100,27 +93,6 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-// Updated /upload route using the uploadFile utility
-router.post('/upload', upload.single('image'), async (req, res, next) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
-    }
-
-    // Use the utility function to upload the file and specify 'spa-days' as the entity type
-    const imageUrl = await uploadFile(
-      req.file.buffer,
-      req.file.originalname,
-      'memberships',
-    );
-
-    // Return the URL of the uploaded image
-    res.json({ imageUrl });
-  } catch (error) {
-    console.error('Error uploading image:', error);
-    next(error);
-  }
-});
 
 router.delete('/upload/:key', async (req, res, next) => {
   try {
